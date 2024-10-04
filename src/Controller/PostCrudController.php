@@ -43,10 +43,16 @@ class PostCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
+        $loginAction = Action::new('login', 'Login')
+            ->displayIf(fn () => !$this->getUser())
+            ->createAsGlobalAction()
+            ->linkToUrl('/login');
+
         return $actions
+            ->add(Crud::PAGE_INDEX, $loginAction)
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
-            ->remove(Crud::PAGE_DETAIL, Action::DELETE)
             ->add(Crud::PAGE_EDIT, Action::DELETE)
+            ->remove(Crud::PAGE_DETAIL, Action::DELETE)
             ->setPermission(Action::EDIT, 'ROLE_ADMIN')
             ->setPermission(Action::DELETE, 'ROLE_ADMIN')
             ->setPermission(Action::NEW, 'ROLE_ADMIN');

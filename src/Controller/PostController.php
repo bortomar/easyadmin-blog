@@ -30,6 +30,6 @@ class PostController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToCrud('Posts', 'fas fa-list', Post::class);
-        yield MenuItem::linkToCrud('Comments', 'fas fa-list', Comment::class);
+        yield MenuItem::linkToCrud('Comments', 'fas fa-list', Comment::class)->setPermission('ROLE_ADMIN');
     }
 }

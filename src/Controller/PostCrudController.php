@@ -115,7 +115,7 @@ class PostCrudController extends AbstractCrudController
                 ->hideOnForm(),
             DateTimeField::new('updatedAt')
                 ->hideOnForm(),
-            TextField::new('author'),
+            AssociationField::new('author'),
             TextEditorField::new('content')
                 ->onlyOnDetail(),
             TextEditorField::new('content')
@@ -133,6 +133,7 @@ class PostCrudController extends AbstractCrudController
                 ->allowAdd(false)
                 ->setEntryIsComplex()
                 ->onlyOnForms()
+                ->hideWhenCreating()
                 ->useEntryCrudForm(),
             AssociationField::new('comments')
                 ->onlyOnIndex()

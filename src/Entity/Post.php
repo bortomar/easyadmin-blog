@@ -28,11 +28,12 @@ class Post
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'post', orphanRemoval: true)]
     private Collection $comments;
 
-    #[ORM\Column(length: 255)]
-    private ?string $author = null;
-
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
+
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $author = null;
 
     public function __construct()
     {
@@ -86,18 +87,6 @@ class Post
         return $this;
     }
 
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): static
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
     public function getContent(): ?string
     {
         return $this->content;
@@ -113,5 +102,17 @@ class Post
 
   public function __toString(){
     return $this->title;
+  }
+
+  public function getAuthor(): ?User
+  {
+      return $this->author;
+  }
+
+  public function setAuthor(?User $author): static
+  {
+      $this->author = $author;
+
+      return $this;
   }
 }

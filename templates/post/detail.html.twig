@@ -1,0 +1,41 @@
+
+{% extends '@!EasyAdmin/crud/detail.html.twig' %}
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @var entity \EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto #}
+{% form_theme new_form with ea.crud.formThemes only %}
+
+{% block content_title %}
+    {{ entity }}
+{% endblock %}
+{% block page_actions %}
+    {{ parent() }}
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <div class="row">
+            {{ entity.instance.content|raw}}
+        </div>
+        <div class="row">
+            {% block new_form %}
+                {{ form(new_form) }}
+            {% endblock new_form %}
+        </div>
+    </div>
+    <div class="container">
+        {% for comment in entity.instance.comments %}
+            <div class="card mb-3">
+                <div class="card-header">
+                    <div class="card-title">
+                        {{comment.createdAt|date}} {{comment.author}}
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-text">
+                        {{comment.content|raw}}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %} 

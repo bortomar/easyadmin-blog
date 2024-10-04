@@ -67,4 +67,8 @@ class Comment
 
         return $this;
     }
+
+    public function __tostring() {
+        return $this->author. ' '. $this->createdAt->format('d. m. Y H:i');
+    }
 }

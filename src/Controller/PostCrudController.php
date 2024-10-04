@@ -25,7 +25,7 @@ class PostCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        
+
         return Post::class;
     }
 
@@ -53,9 +53,11 @@ class PostCrudController extends AbstractCrudController
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ->add(Crud::PAGE_EDIT, Action::DELETE)
             ->remove(Crud::PAGE_DETAIL, Action::DELETE)
-            ->setPermission(Action::EDIT, 'ROLE_ADMIN')
-            ->setPermission(Action::DELETE, 'ROLE_ADMIN')
-            ->setPermission(Action::NEW, 'ROLE_ADMIN');
+            ->setPermissions([
+                Action::EDIT => 'ROLE_ADMIN',
+                Action::DELETE => 'ROLE_ADMIN',
+                Action::NEW => 'ROLE_USER'
+            ]);
     }
 
 
@@ -115,7 +117,8 @@ class PostCrudController extends AbstractCrudController
                 ->hideOnForm(),
             DateTimeField::new('updatedAt')
                 ->hideOnForm(),
-            AssociationField::new('author'),
+            AssociationField::new('author')
+                ->hideOnForm(),
             TextEditorField::new('content')
                 ->onlyOnDetail(),
             TextEditorField::new('content')

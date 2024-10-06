@@ -53,9 +53,10 @@ class PostCrudController extends AbstractCrudController
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ->add(Crud::PAGE_EDIT, Action::DELETE)
             ->remove(Crud::PAGE_DETAIL, Action::DELETE)
+            ->remove(Crud::PAGE_INDEX, Action::EDIT)
+            ->remove(Crud::PAGE_INDEX, Action::DELETE)
             ->setPermissions([
-                Action::EDIT => 'ROLE_ADMIN',
-                Action::DELETE => 'ROLE_ADMIN',
+                Action::DELETE => 'ROLE_USER',
                 Action::NEW => 'ROLE_USER'
             ]);
     }
